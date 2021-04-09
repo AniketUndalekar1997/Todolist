@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+	<div id="myDIV" class="header">
+        <h2 style="margin:5px">Django To Do list App</h2>
+
+        <form action="" method="post">
+            {% csrf_token %}
+            <input type="text" id="myInput" name="title" placeholder="Add your Task here....">
+            <button type="Submit" class="addBtn">Add</button>
+        </form>
+        {% if messages %}
+        {% for message in messages %}
+        <p {% if message.tags %} class="alert alert-{{message.tags}} mb-5" {% endif %}>{{message}}</p>
+        {% endfor %}
+        {% endif %}
+    </div>
+	
+<ul id="myUL">
+    {% for todo in todos reversed %}
+    <li> {{ todo | title }} <span class="close" type="submit"><a style="text-decoration: none;" href="{% url 'delete' todo.id %}">Delete</a></span></li>
+    {% endfor %}
+</ul>
+
+{% endblock %}
+
+
+
